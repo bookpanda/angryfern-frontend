@@ -4,7 +4,7 @@ import Video from "../components/Video/Video";
 
 export default function Home() {
   return (
-    <div className="relative h-full w-full bg-blue-100">
+    <div className="relative h-full w-full">
       <DisplayScore />
       <Clicker>
         <Video />
