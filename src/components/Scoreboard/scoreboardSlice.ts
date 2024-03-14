@@ -1,5 +1,4 @@
 import { createAppSlice } from "@/store/createAppSlice";
-import { RootState } from "@/store/store";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export interface ScoreboardState {}
@@ -18,6 +17,9 @@ export const scoreboardSlice = createAppSlice({
   extraReducers: (builder) => {
     builder.addCase(updateScores.fulfilled, (state, action) => {});
   },
+  selectors: {
+    selectAll: (state) => state,
+  },
 });
 
-export const selectAll = (state: RootState) => state.scoreboard;
+export const { selectAll } = scoreboardSlice.selectors;

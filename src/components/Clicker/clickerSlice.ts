@@ -1,12 +1,13 @@
 import { createAppSlice } from "@/store/createAppSlice";
-import { RootState } from "@/store/store";
 
 export interface ClickerState {
   count: number;
+  isPlaying: boolean;
 }
 
 const initialState: ClickerState = {
   count: 0,
+  isPlaying: false,
 };
 
 export const clickerSlice = createAppSlice({
@@ -15,9 +16,17 @@ export const clickerSlice = createAppSlice({
   reducers: {
     increment: (state) => {
       state.count += 1;
+      state.isPlaying = true;
     },
+    stopPlaying: (state) => {
+      state.isPlaying = false;
+    },
+  },
+  selectors: {
+    selectCount: (state) => state.count,
+    selectIsPlaying: (state) => state.isPlaying,
   },
 });
 
-export const { increment } = clickerSlice.actions;
-export const selectCount = (state: RootState) => state.clicker.count;
+export const { increment, stopPlaying } = clickerSlice.actions;
+export const { selectCount, selectIsPlaying } = clickerSlice.selectors;
