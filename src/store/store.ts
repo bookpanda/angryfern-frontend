@@ -1,10 +1,15 @@
-import clickerSlice from "@/components/Clicker/clickerSlice";
-import scoreboardSlice from "@/components/Scoreboard/scoreboardSlice";
-import { configureStore } from "@reduxjs/toolkit";
+import { clickerSlice } from "@/components/Clicker/clickerSlice";
+import { scoreboardSlice } from "@/components/Scoreboard/scoreboardSlice";
+import { combineSlices, configureStore } from "@reduxjs/toolkit";
 
-const store = configureStore({
-  reducer: { clicker: clickerSlice, scoreboard: scoreboardSlice },
-});
+const rootReducer = combineSlices(clickerSlice, scoreboardSlice);
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export const makeStore = () => {
+  return configureStore({
+    reducer: rootReducer,
+  });
+};
+
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = AppStore["dispatch"];

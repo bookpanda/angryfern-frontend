@@ -1,5 +1,5 @@
+import { createAppSlice } from "@/store/createAppSlice";
 import { RootState } from "@/store/store";
-import { createSlice } from "@reduxjs/toolkit";
 
 export interface ClickerState {
   count: number;
@@ -9,7 +9,7 @@ const initialState: ClickerState = {
   count: 0,
 };
 
-export const clickerSlice = createSlice({
+export const clickerSlice = createAppSlice({
   name: "clicker",
   initialState,
   reducers: {
@@ -21,4 +21,3 @@ export const clickerSlice = createSlice({
 
 export const { increment } = clickerSlice.actions;
 export const selectCount = (state: RootState) => state.clicker.count;
-export default clickerSlice.reducer;
