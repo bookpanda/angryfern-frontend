@@ -12,7 +12,7 @@ export const Clicker: FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <div className="absolute bottom-0 -z-10 h-full w-full" onClick={onClicked}>
+    <div className="absolute bottom-0 h-full w-full" onClick={onClicked}>
       {children}
     </div>
   );
