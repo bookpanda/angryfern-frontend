@@ -251,7 +251,7 @@ export interface ScoreboardState {
   MZ: number;
 }
 
-const codeToName = {
+export const codeToName = {
   BD: "Bangladesh",
   BE: "Belgium",
   BF: "Burkina Faso",

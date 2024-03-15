@@ -1,9 +1,15 @@
 import { createAppSlice } from "@/store/createAppSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { codeToName } from "./types";
 
-export interface ScoreboardState {}
+interface initialScoreboardState {
+  [code: string]: number;
+}
 
-const initialState: ScoreboardState = {};
+const initialState: initialScoreboardState = {};
+for (const countryCode in codeToName) {
+  initialState[countryCode] = 0;
+}
 
 export const updateScores = createAsyncThunk(
   "scoreboard/updateScores",
