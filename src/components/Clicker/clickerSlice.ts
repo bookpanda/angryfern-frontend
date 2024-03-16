@@ -3,11 +3,13 @@ import { getCountryCode, sendClickCount } from "./clickerAPI";
 
 export interface ClickerState {
   count: number;
+  newClicks: number;
   isPlaying: boolean;
 }
 
 const initialState: ClickerState = {
   count: 0,
+  newClicks: 0,
   isPlaying: false,
 };
 
@@ -17,6 +19,7 @@ export const clickerSlice = createAppSlice({
   reducers: (create) => ({
     increment: create.reducer((state) => {
       state.count += 1;
+      state.newClicks += 1;
       state.isPlaying = true;
     }),
     incrementAsync: create.asyncThunk(
@@ -32,15 +35,21 @@ export const clickerSlice = createAppSlice({
         rejected: () => {},
       }
     ),
+    resetCount: create.reducer((state) => {
+      state.newClicks = 0;
+    }),
     stopPlaying: create.reducer((state) => {
       state.isPlaying = false;
     }),
   }),
   selectors: {
     selectCount: (state) => state.count,
+    selectNewClicks: (state) => state.newClicks,
     selectIsPlaying: (state) => state.isPlaying,
   },
 });
 
-export const { increment, incrementAsync, stopPlaying } = clickerSlice.actions;
-export const { selectCount, selectIsPlaying } = clickerSlice.selectors;
+export const { increment, incrementAsync, resetCount, stopPlaying } =
+  clickerSlice.actions;
+export const { selectCount, selectNewClicks, selectIsPlaying } =
+  clickerSlice.selectors;
