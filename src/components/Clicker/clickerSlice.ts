@@ -29,9 +29,7 @@ export const clickerSlice = createAppSlice({
       },
       {
         pending: () => {},
-        fulfilled: () => {
-          // state.count += 1;
-        },
+        fulfilled: () => {},
         rejected: () => {},
       }
     ),
