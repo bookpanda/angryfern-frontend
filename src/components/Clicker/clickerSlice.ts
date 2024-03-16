@@ -2,12 +2,14 @@ import { createAppSlice } from "@/store/createAppSlice";
 import { getCountryCode } from "./clickerAPI";
 
 export interface ClickerState {
+  newClicks: number;
   count: number;
   isPlaying: boolean;
   countryCode: string;
 }
 
 const initialState: ClickerState = {
+  newClicks: 0,
   count: 0,
   isPlaying: false,
   countryCode: "",
@@ -19,7 +21,11 @@ export const clickerSlice = createAppSlice({
   reducers: (create) => ({
     increment: create.reducer((state) => {
       state.count += 1;
+      state.newClicks += 1;
       state.isPlaying = true;
+    }),
+    resetNewClicks: create.reducer((state) => {
+      state.newClicks = 0;
     }),
     stopPlaying: create.reducer((state) => {
       state.isPlaying = false;
@@ -40,11 +46,17 @@ export const clickerSlice = createAppSlice({
   }),
   selectors: {
     selectCount: (state) => state.count,
+    selectNewClicks: (state) => state.newClicks,
     selectCountryCode: (state) => state.countryCode,
     selectIsPlaying: (state) => state.isPlaying,
   },
 });
 
-export const { increment, stopPlaying, setCodeAsync } = clickerSlice.actions;
-export const { selectCount, selectCountryCode, selectIsPlaying } =
-  clickerSlice.selectors;
+export const { increment, resetNewClicks, stopPlaying, setCodeAsync } =
+  clickerSlice.actions;
+export const {
+  selectCount,
+  selectNewClicks,
+  selectCountryCode,
+  selectIsPlaying,
+} = clickerSlice.selectors;

@@ -1,8 +1,14 @@
 "use client";
 
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { FC, PropsWithChildren, useEffect } from "react";
-import { increment, setCodeAsync } from "./clickerSlice";
+import { sendClickCount } from "./clickerAPI";
+import {
+  increment,
+  resetNewClicks,
+  selectNewClicks,
+  setCodeAsync,
+} from "./clickerSlice";
 
 export const Clicker: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useAppDispatch();
@@ -10,12 +16,19 @@ export const Clicker: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     dispatch(setCodeAsync(""));
 
-    const timer = setInterval(() => {
+    const codeTimer = setInterval(() => {
       dispatch(setCodeAsync(""));
     }, 1000 * 60);
 
+    const sendClickTimer = setInterval(async () => {
+      const newClicks = useAppSelector((state) => selectNewClicks(state));
+      dispatch(resetNewClicks());
+      await sendClickCount(newClicks);
+    }, 1000 * 5);
+
     return () => {
-      clearInterval(timer);
+      clearInterval(codeTimer);
+      clearInterval(sendClickTimer);
     };
   }, []);
 
