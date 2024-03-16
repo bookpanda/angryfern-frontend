@@ -6,12 +6,15 @@ import { sendClickCount } from "./clickerAPI";
 import {
   increment,
   resetNewClicks,
+  selectCountryCode,
   selectNewClicks,
   setCodeAsync,
 } from "./clickerSlice";
 
 export const Clicker: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useAppDispatch();
+  const newClicks = useAppSelector((state) => selectNewClicks(state));
+  const countryCode = useAppSelector((state) => selectCountryCode(state));
 
   useEffect(() => {
     dispatch(setCodeAsync(""));
@@ -21,10 +24,10 @@ export const Clicker: FC<PropsWithChildren> = ({ children }) => {
     }, 1000 * 60);
 
     const sendClickTimer = setInterval(async () => {
-      const newClicks = useAppSelector((state) => selectNewClicks(state));
+      // if (newClicks === 0) return;
+      await sendClickCount(newClicks, countryCode);
       dispatch(resetNewClicks());
-      await sendClickCount(newClicks);
-    }, 1000 * 5);
+    }, 5000);
 
     return () => {
       clearInterval(codeTimer);

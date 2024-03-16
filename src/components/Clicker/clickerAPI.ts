@@ -1,10 +1,6 @@
 import { API_KEY, API_URL } from "@/constants/constants";
-import { useAppSelector } from "@/store/hooks";
-import { selectCountryCode } from "./clickerSlice";
 
-export const sendClickCount = async (count: number) => {
-  const countryCode = useAppSelector((state) => selectCountryCode(state));
-
+export const sendClickCount = async (count: number, countryCode: string) => {
   const body = {
     code: countryCode,
     amount: count,
