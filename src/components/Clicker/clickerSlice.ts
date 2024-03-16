@@ -1,5 +1,4 @@
 import { createAppSlice } from "@/store/createAppSlice";
-import { PayloadAction } from "@reduxjs/toolkit";
 import { getCountryCode } from "./clickerAPI";
 
 export interface ClickerState {
@@ -25,9 +24,6 @@ export const clickerSlice = createAppSlice({
     stopPlaying: create.reducer((state) => {
       state.isPlaying = false;
     }),
-    setCode: create.reducer((state, action: PayloadAction<string>) => {
-      state.countryCode = action.payload;
-    }),
     setCodeAsync: create.asyncThunk(
       async () => {
         const code = await getCountryCode();
@@ -49,6 +45,6 @@ export const clickerSlice = createAppSlice({
   },
 });
 
-export const { increment, stopPlaying } = clickerSlice.actions;
+export const { increment, stopPlaying, setCodeAsync } = clickerSlice.actions;
 export const { selectCount, selectCountryCode, selectIsPlaying } =
   clickerSlice.selectors;
