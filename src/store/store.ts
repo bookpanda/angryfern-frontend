@@ -1,12 +1,15 @@
 import { clickerSlice } from "@/components/Clicker/clickerSlice";
-import { scoreboardSlice } from "@/components/Scoreboard/scoreboardSlice";
+import { scoreApiSlice } from "@/components/Scoreboard/scoreApiSlice";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 
-const rootReducer = combineSlices(clickerSlice, scoreboardSlice);
+const rootReducer = combineSlices(clickerSlice, scoreApiSlice);
 
 export const makeStore = () => {
   return configureStore({
     reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => {
+      return getDefaultMiddleware().concat(scoreApiSlice.middleware);
+    },
   });
 };
 
