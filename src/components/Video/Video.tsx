@@ -1,5 +1,6 @@
 "use client";
 
+import { SPEED_THRESHOLD } from "@/constants/constants";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
@@ -9,6 +10,8 @@ const Video = () => {
   const [calcWidth, setCalcWidth] = useState(0);
   const [hasWindow, setHasWindow] = useState(false);
   const dispatch = useAppDispatch();
+  const count = useRef(0);
+  const [speed, setSpeed] = useState(0);
 
   const videoRef = useRef<ReactPlayer>(null);
   const isPlaying = useAppSelector((state) => selectIsPlaying(state));
@@ -40,12 +43,33 @@ const Video = () => {
 
     window.addEventListener("resize", handleResize);
 
+    window.addEventListener("click", () => {
+      count.current += 1;
+    });
+
+    const clickTimer = setInterval(() => {
+      setSpeed(count.current / 2);
+      count.current = 0;
+    }, 1000);
+
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("click", () => {
+        count.current += 1;
+      });
+      clearInterval(clickTimer);
     };
   }, []);
+
+  const isSpeedExceeded = speed > SPEED_THRESHOLD;
+
+  const calculateSpeed = () => {
+    if (speed > SPEED_THRESHOLD) return 4;
+    return 1;
+  };
   return (
     <div className="relative h-screen overflow-hidden">
+      {hasWindow && <ReactPlayer url="ora.mp3" playing={isSpeedExceeded} />}
       {hasWindow && (
         <ReactPlayer
           ref={videoRef}
@@ -53,6 +77,7 @@ const Video = () => {
           width={calcWidth}
           playing={isPlaying}
           onEnded={onVideoEnded}
+          playbackRate={calculateSpeed()}
           progressInterval={5}
           url="fern.mp4"
           style={{
@@ -65,7 +90,8 @@ const Video = () => {
           onProgress={({ playedSeconds }) => {
             if (playedSeconds >= 0.4) {
               dispatch(stopPlaying());
-              videoRef.current?.seekTo(0.1);
+              if (isSpeedExceeded) videoRef.current?.seekTo(0.13);
+              else videoRef.current?.seekTo(0.1);
             }
           }}
         />
