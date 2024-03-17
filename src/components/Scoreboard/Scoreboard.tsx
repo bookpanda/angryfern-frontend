@@ -16,7 +16,7 @@ export const Scoreboard = () => {
       <Button
         variant="secondary"
         className={clsx(
-          "absolute right-4 top-[15%] w-16",
+          "absolute right-4 top-[15%] z-20 w-16",
           !show && "opacity-30"
         )}
         onClick={handleClick}
@@ -25,7 +25,7 @@ export const Scoreboard = () => {
       </Button>
       <div
         className={clsx(
-          "absolute right-4 top-[20%] h-1/2 w-1/6 overflow-scroll rounded-lg duration-300 ease-in-out",
+          "absolute right-4 top-[20%] z-20 h-1/2 w-1/6 overflow-scroll rounded-lg duration-300 ease-in-out",
           !show && "opacity-0"
         )}
       >
