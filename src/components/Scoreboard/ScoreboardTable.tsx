@@ -1,4 +1,5 @@
 import Flags from "country-flag-icons/react/3x2";
+import AnimatedNumbers from "react-animated-numbers";
 import { Text } from "../custom";
 import {
   Table,
@@ -38,7 +39,16 @@ export const ScoreboardTable = () => {
                 <Flag className="mr-2 w-7 min-w-7 rounded-sm drop-shadow-lg" />
                 <Text variant="p1">{s.country_name}</Text>
               </TableCell>
-              <TableCell>{s.click_count}</TableCell>
+              <TableCell>
+                <AnimatedNumbers
+                  includeComma
+                  transitions={(index) => ({
+                    type: "tween",
+                    duration: index + 0.3,
+                  })}
+                  animateToNumber={s.click_count}
+                />
+              </TableCell>
             </TableRow>
           );
         })}
