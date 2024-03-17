@@ -48,7 +48,7 @@ const Video = () => {
     });
 
     const clickTimer = setInterval(() => {
-      setSpeed(count.current / 2);
+      setSpeed(count.current);
       count.current = 0;
     }, 1000);
 
