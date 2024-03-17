@@ -1,4 +1,5 @@
 import { createAppSlice } from "@/store/createAppSlice";
+import { PayloadAction } from "@reduxjs/toolkit";
 import { getCountryCode, sendClickCount } from "./clickerAPI";
 
 export interface ClickerState {
@@ -17,6 +18,9 @@ export const clickerSlice = createAppSlice({
   name: "clicker",
   initialState,
   reducers: (create) => ({
+    loadClickCount: create.reducer((state, action: PayloadAction<number>) => {
+      state.count = action.payload;
+    }),
     increment: create.reducer((state) => {
       state.count += 1;
       state.newClicks += 1;
@@ -47,7 +51,12 @@ export const clickerSlice = createAppSlice({
   },
 });
 
-export const { increment, incrementAsync, resetCount, stopPlaying } =
-  clickerSlice.actions;
+export const {
+  loadClickCount,
+  increment,
+  incrementAsync,
+  resetCount,
+  stopPlaying,
+} = clickerSlice.actions;
 export const { selectCount, selectNewClicks, selectIsPlaying } =
   clickerSlice.selectors;
