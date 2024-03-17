@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { StoreProvider } from "./StoreProvider";
 
+import { Analytics } from "@vercel/analytics/react";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -43,7 +45,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
         />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <Analytics />
+          {children}
+        </body>
       </html>
     </StoreProvider>
   );
