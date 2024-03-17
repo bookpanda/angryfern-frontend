@@ -34,11 +34,13 @@ export const ScoreboardTable = () => {
           return (
             <TableRow key={s.code}>
               <TableCell>{idx + 1}</TableCell>
-              <TableCell className="flex items-center">
-                <Flag className="mr-2 w-7 min-w-7 rounded-sm drop-shadow-lg" />
-                <Text variant="p1">{s.country_name}</Text>
+              <TableCell className="flex items-center justify-between">
+                <div className="flex space-x-2">
+                  <Flag className="mr-2 w-7 min-w-7 rounded-sm drop-shadow-lg" />
+                  <Text variant="p1">{s.country_name}</Text>
+                </div>
+                {s.click_count}
               </TableCell>
-              <TableCell>{s.click_count}</TableCell>
             </TableRow>
           );
         })}

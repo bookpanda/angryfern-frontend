@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { Button } from "../ui/button";
+import { ScoreDrawer } from "./ScoreDrawer";
 import { ScoreboardTable } from "./ScoreboardTable";
 
 export const Scoreboard = () => {
@@ -10,26 +11,34 @@ export const Scoreboard = () => {
   const handleClick = () => {
     setShow(!show);
   };
-  //drawer for mobile
   return (
     <>
-      <Button
-        variant="secondary"
-        className={clsx(
-          "absolute right-4 top-[15%] z-20 w-16",
-          !show && "opacity-30"
-        )}
-        onClick={handleClick}
-      >
-        {show ? "Hide" : "Show"}
-      </Button>
-      <div
-        className={clsx(
-          "absolute right-4 top-[20%] z-20 h-1/2 w-1/6 overflow-scroll rounded-lg duration-300 ease-in-out",
-          !show && "opacity-0"
-        )}
-      >
-        <ScoreboardTable />
+      <div className="hidden h-full w-full lg:block">
+        <Button
+          variant="secondary"
+          className={clsx(
+            "absolute right-4 top-[14%] z-20 w-16",
+            !show && "opacity-30"
+          )}
+          onClick={handleClick}
+        >
+          {show ? "Hide" : "Show"}
+        </Button>
+        <div
+          className={clsx(
+            "absolute right-4 top-[20%] z-20 h-1/2 overflow-scroll rounded-lg bg-white shadow-2xl duration-300 ease-in-out lg:w-[30%] xl:w-[25%] 2xl:w-[20%]",
+            !show && "opacity-0"
+          )}
+        >
+          <ScoreboardTable />
+        </div>
+      </div>
+      <div className="h-full w-full lg:hidden">
+        <ScoreDrawer>
+          <div className="h-full w-full overflow-scroll">
+            <ScoreboardTable />
+          </div>
+        </ScoreDrawer>
       </div>
     </>
   );
