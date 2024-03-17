@@ -6,8 +6,6 @@ export const sendClickCount = async (count: number, countryCode: string) => {
     amount: count,
   };
 
-  console.log("Sending click count:", body);
-
   try {
     await fetch(`${API_URL}/scores/add`, {
       method: "POST",
