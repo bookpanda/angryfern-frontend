@@ -14,6 +14,7 @@ try clicking it fast enough, then something will happen
 ### Prerequisites
 
 - 💻
+- node v18.12.1 or above
 - pnpm
 
 ### Installation
