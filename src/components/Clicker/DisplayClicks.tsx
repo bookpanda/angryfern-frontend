@@ -4,7 +4,7 @@ import { useAppSelector } from "@/store/hooks";
 import { Text } from "../custom";
 import { selectCount } from "./clickerSlice";
 
-export const DisplayScore = () => {
+export const DisplayClicks = () => {
   const count = useAppSelector((state) => selectCount(state));
   return (
     <div className="fixed z-10 flex w-full flex-col items-center pt-4">
